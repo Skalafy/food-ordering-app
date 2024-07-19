@@ -1,56 +1,99 @@
-import { View, Text,StyleSheet,TextInput,Image, Alert } from 'react-native'
-import React, { useState } from 'react'
-import Button from '@/src/components/Button';
-import { defaultImage } from '@/src/components/ProductListItem';
-import Colors from '@/src/constants/Colors';
+import { View, Text, StyleSheet, TextInput, Image, Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import Button from "@/src/components/Button";
+import { defaultImage } from "@/src/components/ProductListItem";
+import Colors from "@/src/constants/Colors";
 import * as ImagePicker from "expo-image-picker";
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { useRouter, Stack, useLocalSearchParams } from "expo-router";
+import { useDeleteProduct, useInsertProduct, useProduct } from "@/src/api/products";
+import { useUpdateProduct } from "@/src/api/products";
+
 const CreateProductScreen = () => {
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  
-  const { id } = useLocalSearchParams();
-  const isUpdating = !!id;
+
+  const { id: idString } = useLocalSearchParams();
+
+  const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
+  const isUpdating = !!idString;
+
+  const { mutate: insertProduct } = useInsertProduct();
+  const { mutate: updateProduct } = useUpdateProduct();
+  const { mutate: deleteProduct } = useDeleteProduct();
+  const {data:updatingProduct}=useProduct(id)
+  const router = useRouter();
+
+  useEffect(() => {
+    if (updatingProduct) {
+      setName(updatingProduct.name);
+      setPrice(updatingProduct.price.toString());
+      setSelectedImage(updatingProduct.image)
+   }
+ },[updatingProduct])
+
   const onDelete = () => {
-    console.warn("Delete!!!!!!!!")
-  }
+    deleteProduct(id, {
+      onSuccess: () => {
+        resetField();
+        router.replace('/(admin)')
+      }
+    })
+  };
   const confirmDelete = () => {
-    Alert.alert("Confirm ", 'Are you sure you want to delete this product?', [
+    Alert.alert("Confirm ", "Are you sure you want to delete this product?", [
       {
-        text:"Cancel"
+        text: "Cancel",
       },
       {
         text: "Delete",
-        style: 'destructive',
-        onPress:onDelete
-      }
-    ])
-  }
+        style: "destructive",
+        onPress: onDelete,
+      },
+    ]);
+  };
   const resetField = () => {
-    setName("")
-    setPrice("")
-  }
+    setName("");
+    setPrice("");
+  };
   const onSubmit = () => {
     if (isUpdating) {
-      onUpdateCreate()
+      onUpdateCreate();
     } else {
-      onCreate()
+      onCreate();
     }
-  }
+  };
   const onUpdateCreate = () => {
     console.warn("Update Product");
     //save in database
-    resetField();
+    updateProduct(
+      { id, name, price: parseFloat(price), selectedImage },
+      {
+        onSuccess: () => {
+          resetField();
+          router.back();
+        },
+      }
+    );
+    
   };
   const onCreate = () => {
-    console.warn("Create Product")
+    console.warn("Create Product");
     //save in database
-    resetField()
-  }
+    insertProduct(
+      { name, price: parseFloat(price), selectedImage },
+      {
+        onSuccess: () => {
+          resetField();
+          router.back();
+        },
+      }
+    );
+    resetField();
+  };
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes:ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 1,
     });
@@ -63,15 +106,23 @@ const CreateProductScreen = () => {
   };
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{title: isUpdating? 'Update Product':'Create Product'}} />
-      <Image source={{ uri: selectedImage||defaultImage }} style={styles.image} />
-      <Text style={styles.textbutton} onPress={pickImageAsync}>Select Image</Text>
+      <Stack.Screen
+        options={{ title: isUpdating ? "Update Product" : "Create Product" }}
+      />
+      <Image
+        source={{ uri: selectedImage || defaultImage }}
+        style={styles.image}
+      />
+      <Text style={styles.textbutton} onPress={pickImageAsync}>
+        Select Image
+      </Text>
       <Text style={styles.label}>Name</Text>
       <TextInput
         value={name}
         onChangeText={setName}
         placeholder="Name"
-        style={styles.input} />
+        style={styles.input}
+      />
 
       <Text style={styles.label}>\Price ($)</Text>
       <TextInput
@@ -79,42 +130,47 @@ const CreateProductScreen = () => {
         onChangeText={setPrice}
         placeholder="9.99"
         style={styles.input}
-        keyboardType='numeric' />
+        keyboardType="numeric"
+      />
 
       <Button text={isUpdating ? " Update" : "create"} onPress={onSubmit} />
-      {isUpdating && (<Text style={{justifyContent:'center'}} onPress={confirmDelete}>Delete</Text>)}
+      {isUpdating && (
+        <Text style={styles.textbutton} onPress={confirmDelete}>
+          Delete
+        </Text>
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    padding:10
+    justifyContent: "center",
+    padding: 10,
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     padding: 10,
     borderRadius: 5,
     marginTop: 5,
-    marginBottom:20,
+    marginBottom: 20,
   },
   label: {
-    color: 'gray',
-    fontSize:16,
+    color: "gray",
+    fontSize: 16,
   },
   image: {
-    width: '50%',
+    width: "50%",
     aspectRatio: 1,
-    alignSelf:'center'
+    alignSelf: "center",
   },
   textbutton: {
-    alignSelf: 'center',
-    fontWeight: 'bold',
+    alignSelf: "center",
+    fontWeight: "bold",
     color: Colors.light.tint,
-    marginVertical:10,
-  }
-})
+    marginVertical: 10,
+  },
+});
 
-export default CreateProductScreen
+export default CreateProductScreen;

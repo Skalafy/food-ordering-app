@@ -10,7 +10,8 @@ type ProductListItemProps = {
   product: Product;
 };
 const ProductList = ({ product }: ProductListItemProps) => {
-   const segments=useSegments()
+  const segments = useSegments()
+  console.log(product.image)
     return (
       <Link href={`/${segments[0]}/menu/${product.id}`} asChild>
         <Pressable style={styles.container}>
@@ -34,6 +35,7 @@ const styles = StyleSheet.create({
     padding: 10,
     overflow: "hidden",
     flex: 1,
+    maxWidth:'50%'
   },
   image: {
     width: "100%",

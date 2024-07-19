@@ -6,15 +6,26 @@ import { defaultImage } from '@/src/components/ProductListItem'
 import Button from '@/src/components/Button'
 import { useCart } from '@/src/providers/CartProvider'
 import { PizzaSize } from '@/src/types'
+import { useProduct } from '@/src/api/products'
+import { ActivityIndicator } from 'react-native'
 
+ 
 const product = () => {
   const sizes:PizzaSize[] = ["S", "M", "L", "XL"]
   const { addItem }  =useCart()
   const [selectedSize, setSelectedSize] = useState<PizzaSize>("M")
   const router = useRouter();
-  const { id } = useLocalSearchParams();
+ 
+  const { id: idString } = useLocalSearchParams();
+  
 
-  const product = products.find((p) => p.id.toString() === id)
+  const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
+  console.log("id", id);
+
+  const { data: product, error, isLoading } = useProduct(id);
+  console.log('product',product)
+
+
   const addToCart = () => {
     if (!product) {
       return
@@ -22,7 +33,11 @@ const product = () => {
     addItem(product, selectedSize)
     router.push('/cart')
   }
-  if(!product) return (<Text>Product not Found</Text>)
+   if (isLoading) {
+     return <ActivityIndicator />;
+   }
+
+   if (error) return <Text>Failed to fetch product</Text>;
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: product.name }} />

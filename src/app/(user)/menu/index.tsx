@@ -1,10 +1,21 @@
-import { StyleSheet, Image, Text, View,FlatList } from "react-native";
+import { StyleSheet, Image, Text, View,FlatList, AccessibilityInfo, ActivityIndicator } from "react-native";
 import products from "../../../../assets/data/products";
 import ProductList from "@/src/components/ProductListItem";
-
+import { useEffect } from "react";
+import { supabase } from "@/src/lib/supabase";
+import { useQuery } from "@tanstack/react-query";
+import { useProductList } from "@/src/api/products";
 
 
 export default function TabOneScreen() {
+  const { data: products, error, isLoading } = useProductList();
+  console.log('product',products)
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+  
+  if(error) return <Text>Failed to fetch product</Text>
   return (
     <View>
       <FlatList
