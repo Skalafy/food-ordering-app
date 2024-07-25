@@ -8,6 +8,7 @@ import { useCart } from '@/src/providers/CartProvider'
 import { PizzaSize } from '@/src/types'
 import { useProduct } from '@/src/api/products'
 import { ActivityIndicator } from 'react-native'
+import RemoteImage from '@/src/components/RemoteImage'
 
  
 const product = () => {
@@ -41,8 +42,9 @@ const product = () => {
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: product.name }} />
-      <Image
-        source={{ uri: product.image || defaultImage }}
+      <RemoteImage
+        path={product?.image}
+        fallback={defaultImage}
         style={styles.image}
       />
       <Text>select size</Text>
