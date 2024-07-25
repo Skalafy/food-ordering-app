@@ -1,13 +1,14 @@
 import { StyleSheet, Image, Text, View,Pressable } from "react-native";
 import Colors from "../constants/Colors";
 import { Product } from "../types";
+import { Tables } from "../database.types";
 import { Link, useSegments } from "expo-router";
 
 export const defaultImage =
     "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/6cheese.png";
   
 type ProductListItemProps = {
-  product: Product;
+  product: Tables<'products'>;
 };
 const ProductList = ({ product }: ProductListItemProps) => {
   const segments = useSegments()
