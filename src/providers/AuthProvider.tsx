@@ -35,7 +35,7 @@ export default function Authprovider({ children }: PropsWithChildren) {
                 .single();
               setProfile(data || null);
             }
-             console.log('profile',profile)
+            
              setLoading(false);
         }
         fetchSession();
@@ -43,7 +43,7 @@ export default function Authprovider({ children }: PropsWithChildren) {
           setSession(session);
         });
     }, [])
-     console.log("profile", profile);
+     
     return <AuthContext.Provider value={{session,loading,profile,isAdmin:profile?.group==='ADMIN'}}>{children}</AuthContext.Provider>
 }
 

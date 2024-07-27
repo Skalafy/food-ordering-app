@@ -7,24 +7,27 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter, Stack, useLocalSearchParams } from "expo-router";
 import { useDeleteProduct, useInsertProduct, useProduct } from "@/src/api/products";
 import { useUpdateProduct } from "@/src/api/products";
-import * as FileSystem from 'expo-file-system'
+import * as FileSystem from "expo-file-system";
 import { randomUUID } from "expo-crypto";
 import { supabase } from "@/src/lib/supabase";
-import {decode} from 'base64-arraybuffer'
+import { decode } from 'base64-arraybuffer'
+
+
 const CreateProductScreen = () => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const { id: idString } = useLocalSearchParams();
-
-  const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
+  const id = parseFloat(typeof idString === "string" ? idString : idString?.[0]);
+  
   const isUpdating = !!idString;
 
   const { mutate: insertProduct } = useInsertProduct();
   const { mutate: updateProduct } = useUpdateProduct();
   const { mutate: deleteProduct } = useDeleteProduct();
-  const {data:updatingProduct}=useProduct(id)
+  const { data: updatingProduct } = useProduct(id)
+
   const router = useRouter();
 
   useEffect(() => {
@@ -69,7 +72,8 @@ const CreateProductScreen = () => {
   const onUpdate = async() => {
     console.warn("Update Product");
     //save in database
-     const imagePath = await uploadImage();
+    const imagePath = await uploadImage();
+    
     updateProduct(
       { id, name, price: parseFloat(price), selectedImage:imagePath},
       {
@@ -85,6 +89,7 @@ const CreateProductScreen = () => {
     console.warn("Create Product");
     //save in database
     const imagePath = await uploadImage();
+    
     insertProduct(
       { name, price: parseFloat(price), selectedImage:imagePath },
       {
@@ -111,11 +116,11 @@ const CreateProductScreen = () => {
   };
 
   const uploadImage = async () => {
-    if (!image?.startsWith("file://")) {
+    if (!selectedImage?.startsWith("file://")) {
       return;
     }
 
-    const base64 = await FileSystem.readAsStringAsync(image, {
+    const base64 = await FileSystem.readAsStringAsync(selectedImage, {
       encoding: "base64",
     });
     const filePath = `${randomUUID()}.png`;
@@ -123,8 +128,9 @@ const CreateProductScreen = () => {
     const { data, error } = await supabase.storage
       .from("product-images")
       .upload(filePath, decode(base64), { contentType });
-
+    
     if (data) {
+     
       return data.path;
     }
   };

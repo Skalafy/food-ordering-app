@@ -9,7 +9,7 @@ import { useProductList } from "@/src/api/products";
 
 export default function TabOneScreen() {
   const { data: products, error, isLoading } = useProductList();
-  console.log('product',products)
+ 
 
   if (isLoading) {
     return <ActivityIndicator />;

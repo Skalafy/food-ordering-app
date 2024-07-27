@@ -20,7 +20,7 @@ export default function TabLayout() {
   const { isAdmin } = useAuth();
   
   if (!isAdmin) return <Redirect href={'/'} />;
-
+  
   return (
     <Tabs
       screenOptions={{

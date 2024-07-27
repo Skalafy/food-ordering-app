@@ -37,7 +37,7 @@ export const useInsertProduct = () => {
     async mutationFn(data: any) {
       const { error, data:newProduct } = await supabase.from('products').insert({
         name: data.name,
-        image: data.image,
+        image: data.selectedImage,
         price: data.price,
       }).single();
 
@@ -58,19 +58,21 @@ export const useUpdateProduct = () => {
 
   return useMutation({
     async mutationFn(data: any) {
+      console.log("data",data)
       const { data: updatedProduct, error } = await supabase
         .from('products')
         .update({
           name: data.name,
-          image: data.image,
+          image: data.selectedImage,
           price: data.price,
         }).eq('id', data.id)
         .select()
         .single();
-
+      console.log("UpdatedProduct", updatedProduct)
       if (error) {
         throw error;
       }
+      
       return updatedProduct;
     },
     async onSuccess(_, { id }) {

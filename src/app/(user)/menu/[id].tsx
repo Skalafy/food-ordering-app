@@ -21,10 +21,10 @@ const product = () => {
   
 
   const id = parseFloat(typeof idString === "string" ? idString : idString[0]);
-  console.log("id", id);
+  
 
   const { data: product, error, isLoading } = useProduct(id);
-  console.log('product',product)
+  
 
 
   const addToCart = () => {
