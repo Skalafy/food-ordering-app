@@ -7,6 +7,7 @@ import Colors from "@/src/constants/Colors";
 import { OrderStatusList } from "@/src/types";
 import { useOrderDetails, useUpdateOrder } from "@/src/api/orders";
 import { ActivityIndicator } from "react-native";
+import { notifyUserAboutOrderUpdate } from "@/src/lib/notification";
 
 const OrderDetailScreen = () => {
   const { id: idString } = useLocalSearchParams();
@@ -15,20 +16,28 @@ const OrderDetailScreen = () => {
 
   const { data: order, isLoading, error } = useOrderDetails(id);
   
-  const {mutate:updateOrder}=useUpdateOrder()
-   if (isLoading) {
-     return <ActivityIndicator />;
-   }
-   if (error || !order) {
-     return <Text>Failed to fetch</Text>;
-  }
-   const updateStatus = (status: string) => {
-     updateOrder({
-       id: id,
-       updatedFields: { status },
-     });
+  
+  const { mutate: updateOrder } = useUpdateOrder()
+  
+   const updateStatus = async (status: string) => {
+    await updateOrder({
+      id: id,
+      updatedFields: { status },
+    });
+     console.log("Notify",order?.user_id)
+    if (order) {
+      await notifyUserAboutOrderUpdate({ ...order ,status});
+    }
+  };
     
-   };
+    
+  
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+  if (error || !order) {
+    return <Text>Failed to fetch</Text>;
+  }
 
   return (
     <View style={styles.container}>

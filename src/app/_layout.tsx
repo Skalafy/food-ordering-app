@@ -11,6 +11,7 @@ import QueryProvider from '../providers/QueryProvider';
 import { useColorScheme } from '@/src/components/useColorScheme';
 import { Modal } from 'react-native';
 import CartScreen from './cart';
+import NotificationProvider from '../providers/NotificationProvider';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,14 +57,16 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Authprovider>
         <QueryProvider>
-          <CartProvider>
-            <Stack>
-              <Stack.Screen name="(user)" options={{ headerShown: false }} />
-              <Stack.Screen name="(admin)" options={{ headerShown: false }} />
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="cart" options={{ presentation: "modal" }} />
-            </Stack>
-          </CartProvider>
+          <NotificationProvider>
+            <CartProvider>
+              <Stack>
+                <Stack.Screen name="(user)" options={{ headerShown: false }} />
+                <Stack.Screen name="(admin)" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="cart" options={{ presentation: "modal" }} />
+              </Stack>
+            </CartProvider>
+          </NotificationProvider>
         </QueryProvider>
       </Authprovider>
     </ThemeProvider>
