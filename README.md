@@ -87,12 +87,12 @@ npx expo start -c
 Here is a screenshot of the user interface:
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-  <img src="Screenshot/User/1.png" alt="User Interface 1" width="300" height="533"/>
-  <img src="Screenshot/User/2.png" alt="User Interface 2" width="300" height="533"/>
-  <img src="Screenshot/User/3.png" alt="User Interface 3" width="300" height="533"/>
-  <img src="Screenshot/User/4.png" alt="User Interface 4" width="300" height="533"/>
-  <img src="Screenshot/User/5.png" alt="User Interface 5" width="300" height="533"/>
-  <img src="Screenshot/User/6.png" alt="User Interface 6" width="300" height="533"/>
+  <img src="Screenshot/User/1.png" alt="User Interface 1" width="150" height="265"/>
+  <img src="Screenshot/User/2.png" alt="User Interface 2" width="150" height="265"/>
+  <img src="Screenshot/User/3.png" alt="User Interface 3" width="150" height="265"/>
+  <img src="Screenshot/User/4.png" alt="User Interface 4" width="150" height="265"/>
+  <img src="Screenshot/User/5.png" alt="User Interface 5" width="150" height="265"/>
+  <img src="Screenshot/User/6.png" alt="User Interface 6" width="150" height="265"/>
 </div>
 
 ### Admin Interface
