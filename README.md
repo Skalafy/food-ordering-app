@@ -32,7 +32,7 @@ Clone the Repository
 
 bash
 Copy code
-git clone https://github.com//pizza-ordering-app.git
+git clone https://github.com/Skalafy/food-ordering-app.git
 cd pizza-ordering-app
 Install Dependencies
 
