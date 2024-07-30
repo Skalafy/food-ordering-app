@@ -41,24 +41,41 @@ To get started with the Pizza Ordering App, follow the steps below:
    git clone https://github.com/yourusername/pizza-ordering-app.git
    cd pizza-ordering-app
 
-2. **Install Dependencies**
-    ```bash
-   yarn install 
-   or
-   npm install
+ 
+## Set Up Supabase
 
-3. **Set Up Supabase**
+2. **Set Up Supabase**
 
- -Create a new project in Supabase.
- -Copy the supabaseUrl and -supabaseKey from your Supabase  project settings.
- -Create a .env file in the root of your project and add the following
+   1. **Create a new project in Supabase**:
+      - Go to [Supabase](https://supabase.com/) and sign in or create an account.
+      - Create a new project from the Supabase dashboard.
 
-    ```bash
-  SUPABASE_URL=your_supabase_url
-  SUPABASE_KEY=your_supabase_key 
+   2. **Copy the `supabaseUrl` and `supabaseKey`**:
+      - Navigate to your project's settings in the Supabase dashboard.
+      - Find and copy the `supabaseUrl` and `supabaseKey` from the API section.
 
-3. **Run the App**
+   3. **Create a `.env` file in the root of your project and add the following**:
+
+      ```bash
+      SUPABASE_URL=your_supabase_url
+      SUPABASE_KEY=your_supabase_key
+      ```
 
 
-    ```bash
-  npx expo start -c
+
+3. **Install Dependencies**
+
+Install the project dependencies using either Yarn or npm:
+
+```bash
+yarn install
+# or
+npm install
+```
+
+4. **Run the App**
+Start the Expo development server with:
+
+```bash
+npx expo start -c
+```
