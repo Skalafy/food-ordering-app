@@ -86,22 +86,26 @@ npx expo start -c
 
 Here is a screenshot of the user interface:
 
-![User Interface](Screenshot/User/1.png)
-![User Interface](Screenshot/User/2.png)
-![User Interface](Screenshot/User/3.png)
-![User Interface](Screenshot/User/4.png)
-![User Interface](Screenshot/User/5.png)
-![User Interface](Screenshot/User/6.png)
-
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="Screenshot/User/1.png" alt="User Interface 1" width="300" height="533"/>
+  <img src="Screenshot/User/2.png" alt="User Interface 2" width="300" height="533"/>
+  <img src="Screenshot/User/3.png" alt="User Interface 3" width="300" height="533"/>
+  <img src="Screenshot/User/4.png" alt="User Interface 4" width="300" height="533"/>
+  <img src="Screenshot/User/5.png" alt="User Interface 5" width="300" height="533"/>
+  <img src="Screenshot/User/6.png" alt="User Interface 6" width="300" height="533"/>
+</div>
 
 ### Admin Interface
 
 Here is a screenshot of the admin interface:
 
-![Admin Interface](Screenshot/Admin/1.png)
-![Admin Interface](Screenshot/Admin/2.png)
-![Admin Interface](Screenshot/Admin/3.png)
-![Admin Interface](Screenshot/Admin/4.png)
-![Admin Interface](Screenshot/Admin/5.png)
-![Admin Interface](Screenshot/Admin/6.png)
-![Admin Interface](Screenshot/Admin/7.png)
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+  <img src="Screenshot/Admin/1.png" alt="Admin Interface 1" width="300" height="533"/>
+  <img src="Screenshot/Admin/2.png" alt="Admin Interface 2" width="300" height="533"/>
+  <img src="Screenshot/Admin/3.png" alt="Admin Interface 3" width="300" height="533"/>
+  <img src="Screenshot/Admin/4.png" alt="Admin Interface 4" width="300" height="533"/>
+  <img src="Screenshot/Admin/5.png" alt="Admin Interface 5" width="300" height="533"/>
+  <img src="Screenshot/Admin/6.png" alt="Admin Interface 6" width="300" height="533"/>
+  <img src="Screenshot/Admin/7.png" alt="Admin Interface 7" width="300" height="533"/>
+</div>
+
