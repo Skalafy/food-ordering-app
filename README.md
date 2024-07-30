@@ -86,12 +86,12 @@ npx expo start -c
 
 Here is a screenshot of the user interface:
 
-![User Interface](Screenshot/user/1.png)
-![User Interface](Screenshot/user/2.png)
-![User Interface](Screenshot/user/3.png)
-![User Interface](Screenshot/user/4.png)
-![User Interface](Screenshot/user/5.png)
-![User Interface](Screenshot/user/6.png)
+![User Interface](screenshot/user/1.png)
+![User Interface](screenshot/user/2.png)
+![User Interface](screenshot/user/3.png)
+![User Interface](screenshot/user/4.png)
+![User Interface](screenshot/user/5.png)
+![User Interface](screenshot/user/6.png)
 
 
 ### Admin Interface
