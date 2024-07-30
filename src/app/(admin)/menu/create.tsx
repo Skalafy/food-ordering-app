@@ -154,7 +154,7 @@ const CreateProductScreen = () => {
         style={styles.input}
       />
 
-      <Text style={styles.label}>\Price ($)</Text>
+      <Text style={styles.label}>Price ($)</Text>
       <TextInput
         value={price}
         onChangeText={setPrice}
