@@ -79,3 +79,29 @@ Start the Expo development server with:
 ```bash
 npx expo start -c
 ```
+
+## Screenshots
+
+### User Interface
+
+Here is a screenshot of the user interface:
+
+![User Interface](Screenshot/user/1.png)
+![User Interface](Screenshot/user/2.png)
+![User Interface](Screenshot/user/3.png)
+![User Interface](Screenshot/user/4.png)
+![User Interface](Screenshot/user/5.png)
+![User Interface](Screenshot/user/6.png)
+
+
+### Admin Interface
+
+Here is a screenshot of the admin interface:
+
+![Admin Interface](screenshot/admin/1.png)
+![Admin Interface](screenshot/admin/2.png)
+![Admin Interface](screenshot/admin/3.png)
+![Admin Interface](screenshot/admin/4.png)
+![Admin Interface](screenshot/admin/5.png)
+![Admin Interface](screenshot/admin/6.png)
+![Admin Interface](screenshot/admin/7.png)
